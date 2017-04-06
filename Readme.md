@@ -24,3 +24,10 @@
    * Get authorization code
    * Get token with the above code. 
 __source__ [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/)
+
+# Authorization Flow Development
+  * oauth.js        - Authorization server
+  * WebServerApp
+     * Install https://www.npmjs.com/package/angular2-generator
+     * run ng2 init
+     
