@@ -1,6 +1,7 @@
 Flow
 ----
-todo: sequence diagram:
+
+
 
 1. user -> resource server: http://localhost:4000/protectedresource
 2. resource server: < no token ?? and redirects to auth server )

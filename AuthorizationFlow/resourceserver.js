@@ -13,7 +13,7 @@ app.get('/protectedresource', function (req, res) {
     console.log(' coookie:' + JSON.stringify(req.cookies))
     var accessToken = req.cookies.accesstoken
     console.log('access token:' + accessToken)
-    
+
     if (accessToken === undefined) {
 
         res.writeHead(302, {
@@ -34,10 +34,18 @@ app.get('/authcodehandler/', function (req, res) {
          res.send('<h1>error - state did not match.</h1>')
      }*/
 
-
     request.post(
         'http://localhost:5001/token',
-        { json: { key: 'value' } },
+        {
+            json:
+            {
+                'grant_type': 'authorization_code',
+                'code': code,
+                'redirect_uri' : 'need to put here.',
+                'client_id' : 'democlient',
+                'client_secret' : 'democlientsecret'
+            }
+        },
         function (error, response, body) {
             if (error) {
                 console.log(error)
