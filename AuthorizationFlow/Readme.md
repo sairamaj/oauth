@@ -1,7 +1,6 @@
 Flow
 ----
-
-
+[[https://github.com/sairamaj/oauth/blob/master/AuthorizationFlow/oauth-authorization-flow.png|alt=flow]]
 
 1. user -> resource server: http://localhost:4000/protectedresource
 2. resource server: < no token ?? and redirects to auth server )
