@@ -2,6 +2,7 @@
     "dependencies": {
         "express" :"4.15.2",
         "body-parser" : "1.17.1",
-        "needle" : "1.6.0"
+        "needle" : "1.6.0",
+        "cookie-parser": "1.4.3"
     }
 }

@@ -1,17 +1,28 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 var app = express()
 var needle = require('needle');
 var request = require('request');
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 app.get('/protectedresource', function (req, res) {
-    res.writeHead(302, {
-        'Location': 'http://localhost:5001/auth?response_type=code&client_id=myouthtest&redirect_uri=http://localhost:4000/authcodehandler&scope=demo&state=1234xyz'
-    })
-    res.end()
+    console.log(' coookie:' + JSON.stringify(req.cookies))
+    var accessToken = req.cookies.accesstoken
+    console.log('access token:' + accessToken)
+    
+    if (accessToken === undefined) {
+
+        res.writeHead(302, {
+            'Location': 'http://localhost:5001/auth?response_type=code&client_id=myouthtest&redirect_uri=http://localhost:4000/authcodehandler&scope=demo&state=1234xyz'
+        })
+        res.end()
+    } else {
+        res.send('<h1> now you can access this protected resource</h1>')
+    }
 })
 
 app.get('/authcodehandler/', function (req, res) {
@@ -32,7 +43,8 @@ app.get('/authcodehandler/', function (req, res) {
                 console.log(error)
             } else {
                 console.log(body)
-                res.send("<h1> you got the token:" + body.access_token + ' and allowed to access.')
+                res.cookie('accesstoken', body.access_token, { maxAge: 900000, httpOnly: true });
+                res.redirect('http://localhost:4000/protectedresource')
             }
         }
     );

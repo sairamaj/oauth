@@ -1,4 +1,4 @@
-# Roles
+# Roles (__source__ [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/))
 ## The third-party Application:"Client"
   * The client is the application that is attempting to get access to the user's account. It needs to get permission from the user before it can do so.
 ## The API: "Resource Server"
@@ -23,11 +23,12 @@
    * Can use client secret.
    * Get authorization code
    * Get token with the above code. 
-__source__ [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/)
 
 # Authorization Flow Development
   * oauth.js        - Authorization server
   * WebServerApp
      * Install https://www.npmjs.com/package/angular2-generator
      * run ng2 init
-     
+# Resources
+* [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/)
+* [10 Things You Should Know about Tokens](https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/)
