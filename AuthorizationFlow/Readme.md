@@ -1,5 +1,5 @@
-##Flow
-[[https://github.com/sairamaj/oauth/blob/master/AuthorizationFlow/oauth-authorization-flow.png|alt=flow]]
+## Flow
+![flow](https://github.com/sairamaj/oauth/blob/master/AuthorizationFlow/oauth-authorization-flow.png|alt=flow)
 
 1. user -> resource server: http://localhost:4000/protectedresource
 2. resource server: < no token ?? and redirects to auth server )
@@ -13,4 +13,3 @@
 9. resource server: uses post to get token with code obtained
 10. resource server -> browser: send the protected resource info.
 11. resource server -> browser: redirects: http://localhost:5001/auth
-
