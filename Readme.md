@@ -18,6 +18,10 @@
    * Authorization code  ( for web server, browser-based, mobile app)
    * Password (user name and password)
    * Client credentials ( application access)
+
+### scopes
+   Scopes define the resources in your system that you want to protect, e.g. APIs.   
+   
 ## Web server app
    * Runs on server ( code is on server)
    * Can use client secret.
