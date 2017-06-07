@@ -39,3 +39,4 @@
 * [Dummy�s guide for the Difference between OAuth Authentication and OpenID] (http://nat.sakimura.org/2011/05/15/dummys-guide-for-the-difference-between-oauth-authentication-and-openid/)
 
 ![flow](https://github.com/sairamaj/oauth/blob/master/images/openid.png)
+[source](https://andrewlock.net/an-introduction-to-openid-connect-in-asp-net-core/)
