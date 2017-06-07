@@ -36,4 +36,6 @@
 # Resources
 * [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/)
 * [10 Things You Should Know about Tokens](https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/)
-* [Dummy’s guide for the Difference between OAuth Authentication and OpenID] (http://nat.sakimura.org/2011/05/15/dummys-guide-for-the-difference-between-oauth-authentication-and-openid/)
+* [Dummyï¿½s guide for the Difference between OAuth Authentication and OpenID] (http://nat.sakimura.org/2011/05/15/dummys-guide-for-the-difference-between-oauth-authentication-and-openid/)
+
+![flow](https://github.com/sairamaj/oauth/blob/master/images/openid.png)

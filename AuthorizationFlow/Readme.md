@@ -14,4 +14,3 @@
 10. resource server -> browser: send the protected resource info.
 11. resource server -> browser: redirects: http://localhost:5001/auth
 
-![flow](https://github.com/sairamaj/oauth/blob/master/images/openid.png)
