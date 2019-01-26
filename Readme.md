@@ -36,7 +36,18 @@
 # Resources
 * [OAuth 2 Simplified](https://aaronparecki.com/oauth-2-simplified/)
 * [10 Things You Should Know about Tokens](https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/)
-* [Dummy�s guide for the Difference between OAuth Authentication and OpenID] (http://nat.sakimura.org/2011/05/15/dummys-guide-for-the-difference-between-oauth-authentication-and-openid/)
+* [Dummys guide for the Difference between OAuth Authentication and OpenID](http://nat.sakimura.org/2011/05/15/dummys-guide-for-the-difference-between-oauth-authentication-and-openid/)
 
 ![flow](https://github.com/sairamaj/oauth/blob/master/images/openid.png)
 [source](https://andrewlock.net/an-introduction-to-openid-connect-in-asp-net-core/)
+
+## Token Types
+### Bearer
+Like metro ticket where anybody having the ticket can take a ride (ex: you bought it but lost it and somebody picket it up)
+### Sender constrained token
+Like a airline boarding pass. The name on the boarding pass should match with your driving license and driving license photo should match with your face (Proof of posession - Holder of key token)
+
+[Authorization code flow is example of this](https://www.youtube.com/watch?v=wm9Tfdlx3GA)
+
+Access tokens are bearer and refresh tokens are sender constraint token in general.
+
