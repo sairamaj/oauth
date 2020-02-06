@@ -1,0 +1,5 @@
+{
+    "url": "https://sairamaj-eval-test.apigee.net/oauth/client_credential/accesstoken?grant_type=client_credentials",
+    "clientid": "<userinput>",
+    "clientsecret": "<userinput>"
+}
