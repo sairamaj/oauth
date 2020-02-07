@@ -1,12 +1,15 @@
 import requests
+from pprint import pprint
 
 class OAuth:
-    def __init__(self, url, clientId, clientSecret):
+    def __init__(self, url,bodyParameters):
         self.url = url
-        self.clientId = clientId
-        self.clientSecret = clientSecret
+        self.bodyParameters = bodyParameters
 
     def getAccessToken(self):
-        data = {"client_id" :self.clientId, "client_secret" : self.clientSecret}
-        return requests.post(self.url, data, verify=False).json()
+       #data = {"client_id" :self.clientId, "client_secret" : self.clientSecret}
+        print('__________________')
+        pprint(self.bodyParameters)
+        print('__________________')
+        return requests.post(self.url, self.bodyParameters, verify=False).json()
 
