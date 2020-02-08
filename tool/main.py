@@ -1,20 +1,23 @@
 import sys
 import oauth
 import json
+from exceptions import ApiException
 from pprint import pprint
+
+def readAllText(fileName):
+    with open(fileName, 'r') as file:
+        return file.read()
 
 # Load file
 if len(sys.argv) < 2:
     print('usage: main.py configfile [optional key value pairs]')
     exit()
 
-configFile = sys.argv[1]
-with open(configFile, 'r') as parameters_file:
-    content = parameters_file.read()
-config = json.loads(content)
+config = json.loads(readAllText(sys.argv[1]))
 pprint(config['body'])
 
 bodyParameters = config['body']
+
 
 # Replace with command line input 
 for arg in sys.argv[2:]:
@@ -26,12 +29,18 @@ for arg in sys.argv[2:]:
 for k,v in bodyParameters.items():
     if v == '<userinput>':
         bodyParameters[k] = input(f"{k}:")
+    elif v == '<fileinput>':
+        bodyParameters[k] = readAllText(input(f"{k} (filename):"))
 
-pprint(bodyParameters)
+#pprint(bodyParameters)
 
 # Get Access token
-oauth = oauth.OAuth(config['url'], bodyParameters )
-response = oauth.getAccessToken()
+try:
+    oauth = oauth.OAuth(config['url'], bodyParameters )
+    response = oauth.getAccessToken()
+    pprint(response)
+    print(response['access_token'])
+except ApiException as e:
+    print(f'Api exception:{e}')
 
-pprint(response)
-print(response['access_token'])
+    

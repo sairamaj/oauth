@@ -1,4 +1,5 @@
 import requests
+from exceptions import ApiException
 from pprint import pprint
 
 class OAuth:
@@ -7,9 +8,9 @@ class OAuth:
         self.bodyParameters = bodyParameters
 
     def getAccessToken(self):
-       #data = {"client_id" :self.clientId, "client_secret" : self.clientSecret}
-        print('__________________')
-        pprint(self.bodyParameters)
-        print('__________________')
-        return requests.post(self.url, self.bodyParameters, verify=False).json()
+        result = requests.post(self.url, self.bodyParameters, verify=False)
+        if result.status_code == 200:
+            return result.json()
+        raise ApiException(result.status_code, result.content)
+    
 
