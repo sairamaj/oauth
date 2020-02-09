@@ -57,7 +57,7 @@ function processAuthCode(code, state, callback) {
   var config = {
     clientId: "23a4b29f-b137-4d05-8479-ca79958ec077",
     clientSecret: "mGUriCicHsF5/4AuKtzIP4xLpv99Zsc/QxFJPVefkz4=",
-    redirectUri: "https://techblue.azurewebsites.net/signin-oidc",
+    redirectUri: "https://localhost/signin-oidc",
     tokenEndpoint: tokenEndpoint,
     tokenEndpointPath: tokenEndpointPath
   };
