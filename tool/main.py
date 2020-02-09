@@ -1,6 +1,7 @@
 import sys
 import oauth
 import json
+import api
 from exceptions import ApiException
 from pprint import pprint
 
@@ -36,10 +37,16 @@ for k,v in bodyParameters.items():
 
 # Get Access token
 try:
+
     oauth = oauth.OAuth(config['url'], bodyParameters )
     response = oauth.getAccessToken()
     pprint(response)
-    print(response['access_token'])
+    access_token = response['access_token']
+    print(access_token)
+    url = 'http://sairamaj-eval-test.apigee.net/saitechtips'
+    api = api.Api(url, access_token,{})
+    response = api.get()
+    pprint(response)
 except ApiException as e:
     print(f'Api exception:{e}')
 
