@@ -10,4 +10,7 @@ class Config:
     def readAllText(self,fileName):
         with open(fileName, 'r') as file:
             return file.read()
+    
+    def apis(self):
+        return list(self.config.keys())
 

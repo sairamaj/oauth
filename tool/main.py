@@ -16,6 +16,9 @@ if len(sys.argv) < 2:
     exit()
 
 config = config.Config(sys.argv[1])
+print(config.apis())
+exit()
+
 accessTokenConfig = config.get("accesstoken")
 pprint(accessTokenConfig['body'])
 
