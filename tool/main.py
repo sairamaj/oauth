@@ -1,56 +1,34 @@
 import sys
-import oauth
 import json
-import api
 import config
 from exceptions import ApiException
 from pprint import pprint
-
-def readAllText(fileName):
-    with open(fileName, 'r') as file:
-        return file.read()
+from transform import transform
+from command import Command
 
 # Load file
 if len(sys.argv) < 2:
-    print('usage: main.py configfile [optional key value pairs]')
+    print("usage: main.py configfile [optional key value pairs]")
     exit()
 
 config = config.Config(sys.argv[1])
-print(config.apis())
-exit()
-
 accessTokenConfig = config.get("accesstoken")
-pprint(accessTokenConfig['body'])
+pprint(accessTokenConfig["body"])
+bodyParameters = transform(accessTokenConfig["body"], sys.argv[2:])
+pprint(bodyParameters)
 
-bodyParameters = accessTokenConfig['body']
-# Replace with command line input 
-for arg in sys.argv[2:]:
-    parts = arg.split('=')
-    if len(parts) > 1:
-        bodyParameters[parts[0]] = parts[1]
+cmd = Command()
+quit = False
+while quit == False:
+    pprint(config.apis())
+    command = input(">>")
 
-# Ask the user for inputs if any after overwriting with command line inputs.
-for k,v in bodyParameters.items():
-    if v == '<userinput>':
-        bodyParameters[k] = input(f"{k}:")
-    elif v == '<fileinput>':
-        bodyParameters[k] = readAllText(input(f"{k} (filename):"))
-
-#pprint(bodyParameters)
-
-# Get Access token
-try:
-
-    oauth = oauth.OAuth(accessTokenConfig['url'], bodyParameters )
-    response = oauth.getAccessToken()
-    pprint(response)
-    access_token = response['access_token']
-    print(access_token)
-    url = config.get('tips')['url']
-    api = api.Api(url, access_token,{})
-    response = api.get()
-    pprint(response)
-except ApiException as e:
-    print(f'Api exception:{e}')
-
-    
+    if command == "quit":
+        quit = True
+    else:
+        try:
+            apiConfig = config.get(command)
+            print(apiConfig)
+            cmd.execute(command, apiConfig["url"], bodyParameters)
+        except ValueError as v:
+            print(v)

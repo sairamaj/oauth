@@ -5,7 +5,11 @@ class Config:
         self.config = json.loads(self.readAllText(config))
 
     def get(self,name):
-        return self.config[name]
+        val = self.config.get(name, None)
+        print(f"val is: ${val}")
+        if val == None:
+            raise ValueError(f"{name} not found")
+        return val
 
     def readAllText(self,fileName):
         with open(fileName, 'r') as file:
