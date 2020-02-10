@@ -2,6 +2,7 @@ import sys
 import oauth
 import json
 import api
+import config
 from exceptions import ApiException
 from pprint import pprint
 
@@ -14,12 +15,11 @@ if len(sys.argv) < 2:
     print('usage: main.py configfile [optional key value pairs]')
     exit()
 
-config = json.loads(readAllText(sys.argv[1]))
-pprint(config['body'])
+config = config.Config(sys.argv[1])
+accessTokenConfig = config.get("accesstoken")
+pprint(accessTokenConfig['body'])
 
-bodyParameters = config['body']
-
-
+bodyParameters = accessTokenConfig['body']
 # Replace with command line input 
 for arg in sys.argv[2:]:
     parts = arg.split('=')
@@ -38,12 +38,12 @@ for k,v in bodyParameters.items():
 # Get Access token
 try:
 
-    oauth = oauth.OAuth(config['url'], bodyParameters )
+    oauth = oauth.OAuth(accessTokenConfig['url'], bodyParameters )
     response = oauth.getAccessToken()
     pprint(response)
     access_token = response['access_token']
     print(access_token)
-    url = 'http://sairamaj-eval-test.apigee.net/saitechtips'
+    url = config.get('tips')['url']
     api = api.Api(url, access_token,{})
     response = api.get()
     pprint(response)
