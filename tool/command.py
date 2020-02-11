@@ -10,8 +10,6 @@ class Command:
 
     def execute(self, command, url, data):
         executor = self.commands.get(command, None)
-        print('executor: ')
-        print(executor)
         if executor == None:
             raise ValueError(f"{command} not found.")
         executor(url, data)
@@ -20,11 +18,11 @@ class Command:
         oauth = OAuth(url, data)
         response = oauth.getAccessToken()
         pprint(response)
-        self.apiResponse.addAccessToken(response["access_token"])
-        pprint(self.apiResponse.getAccessToken())
+        self.apiResponse.access_token = response["access_token"]
+        pprint(self.apiResponse.access_token)
 
     def executeApi(self, url, data):
-        api = Api(url, self.apiResponse.getAccessToken(), data)
+        api = Api(url, self.apiResponse.access_token, data)
         response = api.get()
         pprint(response)
 

@@ -1,34 +1,64 @@
 import sys
-import json
 import config
 from exceptions import ApiException
 from pprint import pprint
 from transform import transform
 from command import Command
+from ui import *
+import argparse
 
 # Load file
-if len(sys.argv) < 2:
-    print("usage: main.py configfile [optional key value pairs]")
-    exit()
+parser = argparse.ArgumentParser()
+parser.add_argument("--batch", help="Batch file name")
+parser.add_argument("--config", help="Config File")
+parser.add_argument("--client_id", help="Client id")
+parser.add_argument("--client_secret", help="Client secret")
+args = parser.parse_args()
 
-config = config.Config(sys.argv[1])
-accessTokenConfig = config.get("accesstoken")
-pprint(accessTokenConfig["body"])
-bodyParameters = transform(accessTokenConfig["body"], sys.argv[2:])
-pprint(bodyParameters)
+if args.config == None:
+    printError('Config file is required . [ex: main.py --config apigee.json] ')
+    parser.print_help()
+    exit(-1)
+
+config = config.Config(args.config)
 
 cmd = Command()
-quit = False
-while quit == False:
-    pprint(config.apis())
-    command = input(">>")
 
-    if command == "quit":
-        quit = True
-    else:
-        try:
-            apiConfig = config.get(command)
-            print(apiConfig)
-            cmd.execute(command, apiConfig["url"], bodyParameters)
-        except ValueError as v:
-            print(v)
+def executeCommand(command):
+    apiConfig = config.get(command)
+    data = apiConfig.get("body", None)
+    if data != None:
+        data = transform(data, args.__dict__)
+    cmd.execute(command, apiConfig["url"], data)
+
+def runBatch(fileName):
+    print(f"executing {fileName}")
+    with open(fileName, "r") as file:
+        for line in file.readlines():
+            command = line.rstrip("\n")
+            executeCommand(command)
+
+def runInteractive():
+    # Go interactive mode
+    quit = False
+    while quit == False:
+        pprint(config.apis())
+        printPrompt(">>")
+        command = input("")
+
+        if command == "quit":
+            quit = True
+        else:
+            try:
+                executeCommand(command)
+            except ValueError as v:
+                printError(str(v))
+            except ApiException as ae:
+                printError(str(ae))
+
+# Run batch
+if args.batch != None:
+    runBatch(args.batch)
+else:
+    runInteractive()
+
