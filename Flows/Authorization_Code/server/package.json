@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "express": "4.16.4",
+        "express": "4.17.3",
         "https": "1.0.0",
         "querystring": "0.2.0",
         "debug": "4.1.1",
